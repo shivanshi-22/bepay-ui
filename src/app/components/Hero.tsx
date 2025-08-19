@@ -1,21 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   const [showCards, setShowCards] = useState(false);
   const [showCreditCard, setShowCreditCard] = useState(false);
-  const [mobileState, setMobileState] = useState("initial"); // "initial" or "expanded"
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-
-      if (scrollY > 100) {
-        setMobileState("expanded");
-      } else {
-        setMobileState("initial");
-      }
 
       if (scrollY > 150) setShowCards(true);
       else setShowCards(false);
@@ -55,146 +48,47 @@ export default function Hero() {
 
       <section className="text-center mt-20 relative">
         {/* Main Heading */}
-        <h1 className="leading-[0.9] font-extrabold">
-          <span className="block text-5xl text-gray-400">MOVE</span>
-          <span className="block text-7xl text-gray-600">MONEY</span>
-          <span className="block text-9xl text-gray-900">FREELY</span>
-        </h1>
+        <div className="text-center leading-[0.85]">
+          <h1 className="font-light text-gray-400 text-[6vw] tracking-tight">
+            MOVE
+          </h1>
+          <h1 className="font-semibold text-gray-600 text-[10vw] tracking-tight -mt-[0.5vw]">
+            MONEY
+          </h1>
+          <h1 className="font-extrabold text-gray-900 text-[16vw] tracking-tight -mt-[1vw]">
+            FREELY
+          </h1>
+        </div>
 
-        {/* Phone Mockup */}
-        <div className="mt-16 flex justify-center relative">
-          <div className="w-80 h-[500px] border-4 border-gray-200 rounded-[2.5rem] shadow-2xl bg-white z-10 overflow-hidden relative">
-            <AnimatePresence mode="wait">
-              {mobileState === "initial" ? (
-                <motion.div
-                  key="initial"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-col items-center justify-center h-full"
-                >
-                  <div className="w-16 h-16 bg-black text-white flex items-center justify-center text-2xl font-bold mb-4">
+        {/* Phone Image */}
+        <div className="flex justify-center relative -mt-[2vw]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative z-10"
+          >
+            {showCards ? (
+              <img
+                src="/image.png"
+                alt="bepay mobile app"
+                className="w-80 h-auto max-h-[500px] object-contain drop-shadow-2xl"
+              />
+            ) : (
+              <div className="w-80 h-[500px] border-4 border-gray-200 rounded-[2.5rem] bg-white drop-shadow-2xl flex flex-col items-center justify-start pt-10">
+                {/* 👆 moved icon up */}
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-black text-white flex items-center justify-center text-2xl font-bold mb-4 mx-auto rounded">
                     bp
                   </div>
                   <p className="text-gray-600 text-sm">
                     Your <span className="font-semibold">Web3 Powered</span>{" "}
                     Super App
                   </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="expanded"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                  className="p-6 h-full flex flex-col"
-                >
-                  {/* App Header */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">bp</span>
-                      </div>
-                      <span className="font-medium text-sm">bepay</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                      <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                    </div>
-                  </div>
-
-                  {/* Balance Section */}
-                  <div className="text-left mb-8">
-                    <p className="text-xs text-gray-500 mb-1">
-                      Est. total balance (USD)
-                    </p>
-                    <h2 className="text-2xl font-bold">1,450 ›</h2>
-                  </div>
-
-                  {/* Action Buttons Grid */}
-                  <div className="grid grid-cols-4 gap-4 mb-8">
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-white text-lg">↓</span>
-                      </div>
-                      <span className="text-xs">Receive</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-gray-600 text-lg">→</span>
-                      </div>
-                      <span className="text-xs">Send</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-gray-600 text-lg">⚡</span>
-                      </div>
-                      <span className="text-xs">Swap</span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-gray-600 text-lg">🏦</span>
-                      </div>
-                      <span className="text-xs text-center leading-3">
-                        Bank account
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-4 gap-4 mb-8">
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-gray-600 text-lg">⊞</span>
-                      </div>
-                      <span className="text-xs text-center leading-3">
-                        Scan & pay
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-gray-600 text-lg">💳</span>
-                      </div>
-                      <span className="text-xs text-center leading-3">
-                        bepay ID
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-2">
-                        <span className="text-gray-600 text-lg">📅</span>
-                      </div>
-                      <span className="text-xs">Earn</span>
-                    </div>
-                    <div className="col-span-1"></div>
-                  </div>
-
-                  {/* Recent Transactions */}
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-sm text-gray-600">
-                        Recent transactions
-                      </span>
-                      <span className="text-sm text-gray-400">View all ›</span>
-                    </div>
-                    <div className="text-left">
-                      <span className="text-sm font-medium">Deposit</span>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Pink border overlay for second state */}
-            {mobileState === "expanded" && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="absolute inset-0 border-4 border-pink-500 rounded-[2.5rem] pointer-events-none"
-              />
+                </div>
+              </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Floating Cards */}
           {showCards && (
@@ -223,86 +117,74 @@ export default function Hero() {
                   </div>
                   <p className="text-sm text-gray-700">
                     Up to <span className="font-bold">7% cashback & rewards</span>
-                    <span className="block text-gray-500">
-                      on every spend!
-                    </span>
+                    <span className="block text-gray-500">on every spend!</span>
                   </p>
                 </div>
               </motion.div>
 
-              {/* Right Card */}
+              {/* Pay Image */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="absolute right-50 top-32 bg-white/70 backdrop-blur-md border border-gray-200 rounded-3xl px-10 py-8 w-[420px] text-center z-20"
+                className="absolute right-50 top-16 z-20"
               >
-                <p className="text-3xl font-light text-gray-500 mb-8">
-                  <span className="font-bold text-gray-800">1</span> PAY.{" "}
-                  <span className="font-bold text-gray-800">2</span> EARN.{" "}
-                  <span className="font-bold text-gray-800">3</span> REPEAT.
-                </p>
-                <div className="flex justify-center gap-4">
-                  <div className="bg-black text-white px-6 py-3 rounded-full text-sm flex items-center gap-2 font-medium cursor-pointer">
-                    🍎 Download on the App Store
-                  </div>
-                  <div className="bg-black text-white px-6 py-3 rounded-full text-sm flex items-center gap-2 font-medium cursor-pointer">
-                    ▶️ Get the App on Google Play
-                  </div>
-                </div>
+                <img
+                  src="/pay.png"
+                  alt="Pay Earn Repeat"
+                  className="w-auto h-auto object-contain max-w-[400px]"
+                />
+              </motion.div>
+
+              {/* Download Buttons Image */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="absolute right-50 top-40 z-20"
+              >
+                <img
+                  src="/download.png"
+                  alt="Download App Store and Google Play"
+                  className="w-auto h-auto object-contain max-w-[350px]"
+                />
               </motion.div>
             </>
           )}
         </div>
 
         {/* Credit Card Section */}
-        <div className="mt-[200px] flex justify-center">
+        <div className="mt-40 flex flex-col items-center pb-20">
           {showCreditCard && (
             <motion.div
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center"
+              className="w-full px-8 md:px-20"
             >
-              <h2 className="text-6xl font-light text-gray-400 mb-8">
-                The only{" "}
-                <span className="font-semibold text-black">card</span> you'll
-                ever need!
+              {/* Big heading aligned left */}
+              <h2 className="text-[10vw] md:text-[8vw] font-light leading-tight text-left max-w-[80%]">
+                <span className="text-gray-400">The only </span>
+                <span className="text-black font-semibold">card</span>
+                <span className="text-gray-400"> you’ll </span>
+                <span className="text-gray-400 block">ever need!</span>
               </h2>
-              <div className="relative">
-                <div className="w-[500px] h-[320px] bg-black rounded-3xl mx-auto shadow-2xl relative overflow-hidden">
-                  {/* Card content */}
-                  <div className="absolute inset-0 p-8 flex flex-col justify-between">
-                    {/* Left side text */}
-                    <div className="absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-center">
-                      <span className="text-gray-400 text-sm tracking-wider">
-                        RuPay Debit Card
-                      </span>
-                    </div>
 
-                    {/* Center logo */}
-                    <div className="flex justify-center items-center h-full">
-                      <div className="text-white text-4xl font-bold">
-                        <div className="grid grid-cols-2 gap-1 w-16 h-16">
-                          <div className="bg-white w-6 h-6"></div>
-                          <div className="bg-white w-6 h-6"></div>
-                          <div className="bg-white w-6 h-6"></div>
-                          <div className="bg-white w-6 h-6"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right side bepay text */}
-                    <div className="absolute right-6 top-1/2 -translate-y-1/2">
-                      <span className="text-white text-3xl font-light">
-                        bepay
-                      </span>
-                    </div>
-                  </div>
-                </div>
+              {/* Centered large card image */}
+              <div className="relative mt-12 flex justify-center">
+                <img
+                  src="/card.png"
+                  alt="bepay debit card"
+                  className="w-[70vw] md:w-[45vw] max-w-[800px] h-auto object-contain drop-shadow-2xl"
+                />
               </div>
             </motion.div>
           )}
+        </div>
+
+        {/* Debug info */}
+        <div className="fixed top-4 left-4 bg-black text-white p-2 rounded text-xs z-50">
+          showCreditCard: {showCreditCard ? "true" : "false"}
         </div>
       </section>
     </div>
